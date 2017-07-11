@@ -16,11 +16,17 @@ class CalculationsController < ApplicationController
     @character_count_with_spaces = @text.length
 
     @character_count_without_spaces = @text.gsub(/\s+/, "").length
+    
+    special_word_with_leading_and_trailing_space = " "+@special_word+" "
 
-    @occurrences = "Replace this string with your answer."
+    
+    
+  @phrase_split = @text.split                        # Create an array of words
+  @occurrences=@phrase_split.count(@special_word)    # Count the occurrences of the special word within the array
+
 
     # ================================================================================
-    # Your code goes above.
+    # (Your code goes above.
     # ================================================================================
 
     render("word_count.html.erb")
