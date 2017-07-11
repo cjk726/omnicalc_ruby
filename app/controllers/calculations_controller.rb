@@ -16,13 +16,9 @@ class CalculationsController < ApplicationController
     @character_count_with_spaces = @text.length
 
     @character_count_without_spaces = @text.gsub(/\s+/, "").length
-    
-    special_word_with_leading_and_trailing_space = " "+@special_word+" "
 
-    
-    
-  @phrase_split = @text.split                        # Create an array of words
-  @occurrences=@phrase_split.count(@special_word)    # Count the occurrences of the special word within the array
+    @phrase_split = @text.split                        # Create an array of words
+    @occurrences=@phrase_split.count(@special_word)    # Count the occurrences of the special word within the array
 
 
     # ================================================================================
@@ -44,7 +40,29 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    # Loan Payment = Amount / Discount Factor
+    # P = A / D
+
+    # Number of Periodic Payments (n) = Payments per year times number of years
+    number_payments = @years.to_f * 12
+    # Periodic Interest Rate (i) = Annual rate divided by number of payments per
+    periodic_interest_rate = (@apr.to_f / 100) / 12 
+
+    # Discount Factor (D) = {[(1 + i) ^n] - 1} / [i(1 + i)^n]
+    discount_factor = (((1+periodic_interest_rate)**number_payments)-1) / ((periodic_interest_rate)*(1+periodic_interest_rate)**number_payments)
+    
+    # P = A / D
+    @principal=@principal.to_f
+    discount_factor=discount_factor.to_f
+    @monthly_payment = @principal / discount_factor
+
+    # Assume you borrow $100,000 at 6% for 30 years to be repaid monthly. What is the monthly payment?
+    #  n = 360 (30 years times 12 monthly payments per year)
+    #  i = .005 (6% annually expressed as .06, divided by 12 monthly payments per year - learn how to convert percentages to decimal format)
+    #  D = 166.7916 ({[(1+.005)^360] - 1} / [.005(1+.005)^360])
+    #  P = A / D = 100,000 / 166.7916 = 599.55
+
+    
 
     # ================================================================================
     # Your code goes above.
