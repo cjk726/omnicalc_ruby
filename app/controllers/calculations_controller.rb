@@ -86,8 +86,7 @@ class CalculationsController < ApplicationController
 
     
 
-# Figure out how to store and subtract @starting & @ending and the rest falls into place
-    
+    # Can't get the dropdown calendar button to work but copy & pasting in dates works
 
     @seconds = @ending - @starting
     @minutes = @seconds.to_f / 60
@@ -112,27 +111,46 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @numbers.max - @numbers.min
 
-    @median = "Replace this string with your answer."
+    if 
+      @count.odd?
+      @median = @sorted_numbers[(@count-1)/2]
+    else
+      @median = (@sorted_numbers[(@count-1)/2] + @sorted_numbers[(@count)/2])/2
+    end
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mean = "Replace this string with your answer."
+    @mean = @numbers.sum.to_f / @numbers.count.to_f
 
-    @variance = "Replace this string with your answer."
+    numbers_minus_mean = []
+    @numbers.each do |num|
+      delta = (num - @mean)**2
+      numbers_minus_mean.push(delta)
+    @variance = numbers_minus_mean.sum / @count
+    end
+    
+    @standard_deviation = @variance**0.5
 
-    @standard_deviation = "Replace this string with your answer."
+# Struggling with Mode. Trying to count the occurrences of each num then find the location of the largest count and map it back to its num.
+    modecounts = []
+     @numbers.each do |num|
+      @numbers.count(num)
+      modecounts.push(num)
+      end
+    #@mode = modecounts.max  
 
-    @mode = "Replace this string with your answer."
+    
+    
 
     # ================================================================================
     # Your code goes above.
