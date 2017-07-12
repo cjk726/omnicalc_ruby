@@ -152,6 +152,7 @@ class CalculationsController < ApplicationController
     #From Stackoverflow
     @mode = @numbers.uniq.max_by{ |i| @numbers.count( i ) }
 
+    # Added comment to create a new commit to test CircleCI testing/grading.
 
     # ================================================================================
     # Your code goes above.
