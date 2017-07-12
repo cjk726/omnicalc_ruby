@@ -15,7 +15,8 @@ class CalculationsController < ApplicationController
 
     @character_count_with_spaces = @text.length
 
-    @character_count_without_spaces = @text.gsub(/\s+/, "").length
+    # @character_count_without_spaces = @text.gsub(/\s+/, "").length      Trying different gsub below to pass 2 failing test cases
+    @character_count_without_spaces = @text.gsub(/[^a-z0-9\s]/i, "")
 
     @phrase_split = @text.split                        # Create an array of words
     @occurrences=@phrase_split.count(@special_word)    # Count the occurrences of the special word within the array
