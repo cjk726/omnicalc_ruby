@@ -141,16 +141,17 @@ class CalculationsController < ApplicationController
     
     @standard_deviation = @variance**0.5
 
-# Struggling with Mode. Trying to count the occurrences of each num then find the location of the largest count and map it back to its num.
-    modecounts = []
-     @numbers.each do |num|
-      @numbers.count(num)
-      modecounts.push(num)
-      end
-    #@mode = modecounts.max  
+      # Struggling with Mode. Trying to count the occurrences of each num then find the location of the largest count and map it back to its num.
+      # modecounts = []
+      # @numbers.each do |num|
+      # @numbers.count(num)
+      # modecounts.push(num)
+      # end
+      #@mode = modecounts.max     # Moving onto Meteorological app 
 
-    
-    
+    #From Stackoverflow
+    @mode = @numbers.uniq.max_by{ |i| @numbers.count( i ) }
+
 
     # ================================================================================
     # Your code goes above.
