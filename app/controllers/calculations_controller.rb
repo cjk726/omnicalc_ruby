@@ -11,15 +11,21 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
+    # THIS Word Count CODE IS NOT AS GOOD AS THE LAST COMMIT SO IT HAS NOT BEEN COMMITED
+    # I was trying to fix the 2 failing cases and didn't do a good job with commenting out my code
+    # The result is this partially working/broken mess. Poor form cjk726. Poor form. :(
+   
+
+    # @text = @text.gsub(/[^a-z0-9\s]/i, " ")   Trying to fix punctuation test case
     @word_count = @text.split.count
 
     @character_count_with_spaces = @text.length
 
     @character_count_without_spaces = @text.gsub(/\s+/, "").length      
-    # @character_count_without_spaces = @text.gsub(/[^a-z0-9\s]/i, "")   Tried this gsbu to fix last 2 test case fails but it broke more!
+    # @character_count_without_spaces = @text.gsub(/[^a-z0-9\s]/i, " ")     Tried this gsbu to fix last 2 test case fails but it broke more!
 
-    @phrase_split = @text.split                        # Create an array of words
-    @occurrences=@phrase_split.count(@special_word)    # Count the occurrences of the special word within the array
+    phrase_split = @text.split                                              # Create an array of words
+    @occurrences=phrase_split.count(@special_word)                          # Count the occurrences of the special word within the array
 
 
     # ================================================================================
